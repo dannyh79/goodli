@@ -18,6 +18,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
+          tabBarTestID: 'home-button',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
           ),
@@ -27,6 +28,7 @@ export default function TabLayout() {
         name="explore"
         options={{
           title: 'Explore',
+          tabBarTestID: 'explore-button',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
           ),
