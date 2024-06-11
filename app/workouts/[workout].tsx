@@ -35,13 +35,13 @@ const VideoTutorial = () => (
 
 const WorkoutProgress = ({ title, currentSet, totalSets }: { title: string; currentSet: number, totalSets: number }) => (
   <View style={styles.workoutContainer}>
-    <Text style={styles.workoutTitle}>{title}</Text>
+    <Text testID="workout-progress-name" style={styles.workoutTitle}>{title}</Text>
     <Text>SET {currentSet} / {totalSets}</Text>
   </View>
 );
 
 const ProgressControl = ({ reps }: { reps: number }) => (
-  <View style={styles.controlContainer}>
+  <View testID="workout-control" style={styles.controlContainer}>
     <Button title="<" onPress={() => {/* move to previous workout */}} />
     <View style={styles.repsIndicator}>
       <View>
