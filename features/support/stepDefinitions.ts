@@ -14,9 +14,8 @@ Then('I can see {string}', async (text: string) => {
 });
 
 Then('I can see {string} from {string}', async (text: string, testId: string) => {
-  const el = element(by.id(testId));
+  const el = element(by.id(testId).and(by.text(text)));
   await expect(el).toBeVisible();
-  await expect(el).toHaveText(text);
 });
 
 Then('There is {string}', async (testId: string) => {
