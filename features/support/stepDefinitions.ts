@@ -21,11 +21,7 @@ When('I tap {string} in {string}', async (label: string, parentTestId: string) =
   await element(by.id(parentTestId)).setColumnToValue(0, label);
 });
 
-Then('I can see {string}', async (text: string) => {
-  await expect(element(by.text(text))).toBeVisible();
-});
-
-Then('I can see {string} from {string}', async (text: string, testId: string) => {
+Then('I can see {string} by id {string}', async (text: string, testId: string) => {
   const el = element(by.id(testId).and(by.text(text)));
   await expect(el).toBeVisible();
 });

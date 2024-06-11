@@ -62,7 +62,7 @@ export const Workout = () => {
 };
 
 const VideoTutorial = () => (
-  <View style={styles.video}>
+  <View testID="workout-video-tutorial" style={styles.video}>
     <Text>(Video section)</Text>
   </View>
 );

@@ -14,9 +14,9 @@ export const Index = () => {
         alignItems: 'center',
       }}
     >
-      <Text>Welcome!</Text>
-      <Link href="workouts/push-up">Push up</Link>
-      <Link href="workouts/plank">Plank</Link>
+      <Text testID="index-headline">Welcome!</Text>
+      <Link testID="index-link-push-up" href="workouts/push-up">Push up</Link>
+      <Link testID="index-link-plank" href="workouts/plank">Plank</Link>
     </View>
   );
 }
