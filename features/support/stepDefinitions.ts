@@ -7,12 +7,14 @@ Given('I open the app', async () => {
   await device.reloadReactNative();
 });
 
-When('I tap {string}', async (text: string) => {
-  await element(by.text(text)).tap();
+When('I tap by id {string}', async (testId: string) => {
+  const el = element(by.id(testId));
+  await expect(el).toBeVisible();
+  await el.tap();
 });
 
-When('I tap by id {string}', async (text: string) => {
-  const el = element(by.id(text));
+When('I tap {string} by id {string}', async (text: string, testId: string) => {
+  const el = element(by.id(testId).and(by.text(text)));
   await expect(el).toBeVisible();
   await el.tap();
 });
