@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import RangePicker from '@/components/RangePicker';
 
 const CURRENT_SET = 1;
 const SETS = 2;
@@ -8,7 +9,8 @@ const REPS = 10;
 
 export const Workout = () => {
   const [set,] = React.useState<number>(CURRENT_SET);
-  const [reps,] = React.useState<number>(REPS);
+  const [reps, setReps] = React.useState<number>(REPS);
+  const [isPickerVisible, setIsPickerVisible] = React.useState<boolean>(false);
 
   const { workout } = useLocalSearchParams();
   const workoutName = String(workout ?? '');
@@ -18,11 +20,43 @@ export const Workout = () => {
     navigation.setOptions({ headerTitle: workoutName.toUpperCase() });
   }, [navigation]);
 
+  const updateRepsAndHidePicker = (v: number) => {
+    setReps(v);
+    setIsPickerVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       <VideoTutorial />
       <WorkoutProgress title={workoutName} totalSets={SETS} currentSet={set} />
-      <ProgressControl reps={reps} />
+      <ProgressControl reps={reps} onPress={() => setIsPickerVisible(true)} />
+      <Modal
+        transparent
+        animationType="slide"
+        visible={isPickerVisible}
+        onRequestClose={() => setIsPickerVisible(false)}
+      >
+        <View
+          style={{
+            flex: 1,
+            height: '30%',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+          }}
+        >
+        <View
+          style={{
+            backgroundColor: '#FFF',
+          }}
+        >
+          <RangePicker
+            testID="reps-modal-picker"
+            value={reps}
+            onValueChange={updateRepsAndHidePicker}
+          />
+        </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -40,17 +74,19 @@ const WorkoutProgress = ({ title, currentSet, totalSets }: { title: string; curr
   </View>
 );
 
-const ProgressControl = ({ reps }: { reps: number }) => (
+const ProgressControl = ({ reps, onPress = () => {} }: { reps: number, onPress: () => void }) => (
   <View testID="workout-control" style={styles.controlContainer}>
     <Button title="<" onPress={() => {/* move to previous workout */}} />
-    <View style={styles.repsIndicator}>
-      <View>
-        <Text>{reps}</Text>
+    <TouchableOpacity testID="workout-control-reps-button" onPress={onPress}>
+      <View style={styles.repsIndicator}>
+        <View>
+          <Text testID="workout-control-reps-count">{reps}</Text>
+        </View>
+        <View>
+          <Text>REPS</Text>
+        </View>
       </View>
-      <View>
-        <Text>REPS</Text>
-      </View>
-    </View>
+    </TouchableOpacity>
     <Button title=">" onPress={() => {/* move to next workout */}} />
   </View>
 );
