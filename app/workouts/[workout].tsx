@@ -18,7 +18,7 @@ export const Workout = () => {
   const navigation = useNavigation();
   React.useEffect(() => {
     navigation.setOptions({ headerTitle: workoutName.toUpperCase() });
-  }, [navigation]);
+  }, [navigation, workoutName]);
 
   const updateRepsAndHidePicker = (v: number) => {
     setReps(v);
