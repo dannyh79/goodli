@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import { Button, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Button, Modal, NativeSyntheticEvent, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import RangePicker from '@/components/RangePicker';
 
 const CURRENT_SET = 1;
@@ -30,33 +30,12 @@ export const Workout = () => {
       <VideoTutorial />
       <WorkoutProgress title={workoutName} totalSets={SETS} currentSet={set} />
       <ProgressControl reps={reps} onPress={() => setIsPickerVisible(true)} />
-      <Modal
-        transparent
-        animationType="slide"
-        visible={isPickerVisible}
+      <PickerModal
+        isVisible={isPickerVisible}
         onRequestClose={() => setIsPickerVisible(false)}
-      >
-        <View
-          style={{
-            flex: 1,
-            height: '30%',
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-          }}
-        >
-        <View
-          style={{
-            backgroundColor: '#FFF',
-          }}
-        >
-          <RangePicker
-            testID="reps-modal-picker"
-            value={reps}
-            onValueChange={updateRepsAndHidePicker}
-          />
-        </View>
-        </View>
-      </Modal>
+        value={reps}
+        onValueChange={updateRepsAndHidePicker}
+      />
     </View>
   );
 };
@@ -89,6 +68,31 @@ const ProgressControl = ({ reps, onPress = () => {} }: { reps: number, onPress: 
     </TouchableOpacity>
     <Button title=">" onPress={() => {/* move to next workout */}} />
   </View>
+);
+
+const PickerModal = ({ isVisible, onRequestClose, value, onValueChange }:
+  {
+    isVisible: boolean;
+    onRequestClose: (event: NativeSyntheticEvent<any>) => void;
+    value: number;
+    onValueChange: (v: number) => void;
+  }) => (
+  <Modal
+    transparent
+    animationType="slide"
+    visible={isVisible}
+    onRequestClose={onRequestClose}
+  >
+    <View style={styles.pickerModalView}>
+      <View style={styles.pickerContainer}>
+        <RangePicker
+          testID="reps-modal-picker"
+          value={value}
+          onValueChange={onValueChange}
+        />
+      </View>
+    </View>
+  </Modal>
 );
 
 const styles = StyleSheet.create({
@@ -129,6 +133,15 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 80 / 2,
     backgroundColor: '#FAA',
+  },
+  pickerModalView: {
+    flex: 1,
+    height: '30%',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  pickerContainer: {
+    backgroundColor: '#FFF',
   },
 });
 
