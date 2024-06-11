@@ -3,6 +3,7 @@ import { useLocalSearchParams, useNavigation } from "expo-router";
 import { Button, Modal, NativeSyntheticEvent, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import RangePicker from '@/components/RangePicker';
 
+// NOTE: for PoC only; these should be from an user's workout config instead
 const CURRENT_SET = 1;
 const SETS = 2;
 const REPS = 10;
