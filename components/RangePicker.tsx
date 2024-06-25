@@ -19,11 +19,7 @@ export const RangePicker = (props: RangePickerProps) => {
   } = props;
 
   return (
-    <Picker
-      testID={testID}
-      selectedValue={value}
-      onValueChange={onValueChange}
-    >
+    <Picker testID={testID} selectedValue={value} onValueChange={onValueChange}>
       {range.map((v) => (
         <Picker.Item
           testID={`range-picker-item-${v}`}

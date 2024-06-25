@@ -1,6 +1,14 @@
 import React from 'react';
-import { useLocalSearchParams, useNavigation } from "expo-router";
-import { Button, Modal, NativeSyntheticEvent, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useLocalSearchParams, useNavigation } from 'expo-router';
+import {
+  Button,
+  Modal,
+  NativeSyntheticEvent,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import RangePicker from '@/components/RangePicker';
 
 // NOTE: for PoC only; these should be from an user's workout config instead
@@ -9,7 +17,7 @@ const SETS = 2;
 const REPS = 10;
 
 export const Workout = () => {
-  const [set,] = React.useState<number>(CURRENT_SET);
+  const [set] = React.useState<number>(CURRENT_SET);
   const [reps, setReps] = React.useState<number>(REPS);
   const [isPickerVisible, setIsPickerVisible] = React.useState<boolean>(false);
 
@@ -47,16 +55,39 @@ const VideoTutorial = () => (
   </View>
 );
 
-const WorkoutProgress = ({ title, currentSet, totalSets }: { title: string; currentSet: number, totalSets: number }) => (
+const WorkoutProgress = ({
+  title,
+  currentSet,
+  totalSets,
+}: {
+  title: string;
+  currentSet: number;
+  totalSets: number;
+}) => (
   <View style={styles.workoutContainer}>
-    <Text testID="workout-progress-name" style={styles.workoutTitle}>{title}</Text>
-    <Text>SET {currentSet} / {totalSets}</Text>
+    <Text testID="workout-progress-name" style={styles.workoutTitle}>
+      {title}
+    </Text>
+    <Text>
+      SET {currentSet} / {totalSets}
+    </Text>
   </View>
 );
 
-const ProgressControl = ({ reps, onPress = () => {} }: { reps: number, onPress: () => void }) => (
+const ProgressControl = ({
+  reps,
+  onPress = () => {},
+}: {
+  reps: number;
+  onPress: () => void;
+}) => (
   <View testID="workout-control" style={styles.controlContainer}>
-    <Button title="<" onPress={() => {/* move to previous workout */}} />
+    <Button
+      title="<"
+      onPress={() => {
+        /* move to previous workout */
+      }}
+    />
     <TouchableOpacity testID="workout-control-reps-button" onPress={onPress}>
       <View style={styles.repsIndicator}>
         <View>
@@ -67,17 +98,26 @@ const ProgressControl = ({ reps, onPress = () => {} }: { reps: number, onPress: 
         </View>
       </View>
     </TouchableOpacity>
-    <Button title=">" onPress={() => {/* move to next workout */}} />
+    <Button
+      title=">"
+      onPress={() => {
+        /* move to next workout */
+      }}
+    />
   </View>
 );
 
-const PickerModal = ({ isVisible, onRequestClose, value, onValueChange }:
-  {
-    isVisible: boolean;
-    onRequestClose: (event: NativeSyntheticEvent<any>) => void;
-    value: number;
-    onValueChange: (v: number) => void;
-  }) => (
+const PickerModal = ({
+  isVisible,
+  onRequestClose,
+  value,
+  onValueChange,
+}: {
+  isVisible: boolean;
+  onRequestClose: (event: NativeSyntheticEvent<any>) => void;
+  value: number;
+  onValueChange: (v: number) => void;
+}) => (
   <Modal
     transparent
     animationType="slide"
