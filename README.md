@@ -32,7 +32,6 @@ Prereqs:
 
 ## Backlog
 
-- [ ] Add pre-commit hooks for sanity check
 - [ ] CI
 - [ ] Clean up error messages in local server after running e2e tests
 

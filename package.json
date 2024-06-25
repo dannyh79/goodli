@@ -6,7 +6,7 @@
     "start": "expo start",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:dev": "jest --watchAll",
     "e2e:ios": "cucumber-js",
     "lint": "expo lint",
